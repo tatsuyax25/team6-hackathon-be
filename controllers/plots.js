@@ -4,7 +4,7 @@ import { Profile } from '../models/profile.js'
 const index = async (req, res) => {
   try {
     const plots = await Plot.find({})
-    .populate('Profile' )
+    .populate('owner')
     .sort({createdAt: 'desc'})
     res.status(200).json(plots)
   } catch (error) {

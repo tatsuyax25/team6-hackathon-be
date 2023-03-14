@@ -28,5 +28,24 @@ const create = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    // const active = req.body.active !== undefined ? req.body.active : true;
+    console.log("update ran")
+    console.log(req.body)
+    const plot = await Plot.findByIdAndUpdate(
+      req.params.id, 
+      req.body,
+      // {...req.body, active},
+      { new: true }
+    )
+    .populate('owner')
+    console.log(plot)
+    res.status(200).json(plot)
+} catch(error) {
+  res.status(500).json(error)
+}
+}
 
-export { index , create }
+
+export { index , create , update }

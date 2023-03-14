@@ -11,6 +11,7 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, plotsCtrl.index)
 router.post('/', checkAuth, plotsCtrl.create)
+router.put('/:id', checkAuth, plotsCtrl.update)
 
 
 export { router }

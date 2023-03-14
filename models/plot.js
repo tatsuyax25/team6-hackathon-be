@@ -6,7 +6,7 @@ const plotSchema = new Schema({
   name: {type: String, required: true},
   actions: [{ type: Schema.Types.ObjectId, ref: 'Action' , required: true}],
   owner: { type: Schema.Types.ObjectId, ref: 'Profile' },
-  category: { type: String, enum: ['finance', 'fitness', 'family', 'social'] }, 
+  category: { type: String, enum: ['finance', 'fitness', 'family', 'friends'] }, 
   userChoice: [{ type: String }],
   points: Number,
   active: Boolean

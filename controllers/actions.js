@@ -31,6 +31,7 @@ const findByPlotId = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        req.body.plot = req.params.plotId
         const action = await Action.create(req.body)
         const plot = await Plot.findById(req.body.plot)
         plot.actions.push(action._id)

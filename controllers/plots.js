@@ -16,6 +16,7 @@ const index = async (req, res) => {
 const findById = async (req, res) => {
   try {
     const plot = await Plot.findById(req.params.id)
+    .populate("actions")
     res.status(200).json(plot)
   } catch (error) {
     res.status(500).json(error)
@@ -26,7 +27,6 @@ const findByProfileId = async (req, res) => {
   try {
     const plots = await Plot.find( { "owner": req.params.id } )
     .populate("actions")
-    console.log(plots)
     res.status(200).json(plots)
   } catch (error) {
     res.status(500).json(error)

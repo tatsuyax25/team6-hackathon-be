@@ -10,6 +10,8 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, plotsCtrl.index)
+router.get('/:id', checkAuth, plotsCtrl.findById)
+router.get('/profile/:id', checkAuth, plotsCtrl.findByProfileId)
 router.post('/', checkAuth, plotsCtrl.create)
 router.put('/:id', checkAuth, plotsCtrl.update)
 

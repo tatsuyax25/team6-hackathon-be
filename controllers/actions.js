@@ -11,6 +11,24 @@ const index = async (req, res) => {
     }
 }
 
+const findById = async (req, res) => {
+    try {
+        const action = await Action.findById(req.params.id)
+        res.status(200).json(action)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+const findByPlotId = async (req, res) => {
+    try {
+        const actions = await Action.find({ "plot": req.params.id})
+        res.status(200).json(actions)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 const create = async (req, res) => {
     try {
         const action = await Action.create(req.body)
@@ -32,4 +50,4 @@ const update = async (req, res) => {
     }
 }
 
-export { index, create, update }
+export { index, findById, findByPlotId, create, update }

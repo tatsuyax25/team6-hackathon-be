@@ -10,6 +10,8 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, actionsCtrl.index)
+router.get('/:id', checkAuth, actionsCtrl.findById)
+router.get('/plot/:id', checkAuth, actionsCtrl.findByPlotId)
 router.post('/', checkAuth, actionsCtrl.create)
 router.put('/:id', checkAuth, actionsCtrl.update)
 

@@ -15,15 +15,13 @@ const index = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    req.body.owner = req.body.profile
-    console.log(req.body.owner)
+    req.body.owner = req.user.profile
     const plot = await Plot.create(req.body)
     const profile = await Profile.findByIdAndUpdate(req.user.profile,
       {$push: {plots: plot}},
       {new: true}
-      )
-      plot.owner = profile
-      res.status(201).json(plot)
+    )
+    res.status(201).json(plot)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
@@ -36,7 +34,6 @@ const update = async (req, res) => {
     const plot = await Plot.findByIdAndUpdate(
       req.params.id, 
       req.body,
-      // {...req.body, active},
       { new: true }
     )
     .populate('owner')

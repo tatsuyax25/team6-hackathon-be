@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const actionSchema = new Schema({
   name: { type: String, required: true },
   plot: { type: Schema.Types.ObjectId, ref: 'Plot' },
-  completed: { type: Boolean, required: true }, 
+  completed: { type: Boolean, default: false, required: true }, 
   reflection: String
 },{
   timestamps: true,

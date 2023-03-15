@@ -2,7 +2,7 @@ import { Profile } from '../models/profile.js'
 import { v2 as cloudinary } from 'cloudinary'
 
 function index(req, res) {
-  Profile.find({})
+  Profile.find({}).populate('plots')
   .then(profiles => res.json(profiles))
   .catch(err => {
     console.log(err)

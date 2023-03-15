@@ -13,6 +13,26 @@ const index = async (req, res) => {
   }
 }
 
+const findById = async (req, res) => {
+  try {
+    const plot = await Plot.findById(req.params.id)
+    res.status(200).json(plot)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
+const findByProfileId = async (req, res) => {
+  try {
+    const plots = await Plot.find( { "owner": req.params.id } )
+    .populate("actions")
+    console.log(plots)
+    res.status(200).json(plots)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 const create = async (req, res) => {
   try {
     req.body.owner = req.user.profile
@@ -30,7 +50,6 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    // const active = req.body.active !== undefined ? req.body.active : true;
     const plot = await Plot.findByIdAndUpdate(
       req.params.id, 
       req.body,
@@ -38,10 +57,10 @@ const update = async (req, res) => {
     )
     .populate('owner')
     res.status(200).json(plot)
-} catch(error) {
-  res.status(500).json(error)
-}
+  } catch(error) {
+    res.status(500).json(error)
+  }
 }
 
 
-export { index , create , update }
+export { index , findById, findByProfileId, create , update }

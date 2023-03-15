@@ -67,10 +67,19 @@ function changePassword(req, res) {
   })
 }
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({})
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 /* --== Helper Functions ==-- */
 
 function createJWT(user) {
   return jwt.sign({ user }, process.env.SECRET, { expiresIn: '24h' })
 }
 
-export { signup, login, changePassword }
+export { signup, login, changePassword, getUsers }

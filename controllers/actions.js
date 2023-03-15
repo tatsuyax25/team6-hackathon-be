@@ -25,7 +25,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        const action = await Action.findByIdAndUpdate(req.params, req.body, {new: true})
+        const action = await Action.findByIdAndUpdate(req.params.id, req.body, {new: true})
         res.status(200).json(action)
     } catch (error) {
         res.status(500).json(error)

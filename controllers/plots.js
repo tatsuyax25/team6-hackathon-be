@@ -4,7 +4,8 @@ import { Profile } from '../models/profile.js'
 const index = async (req, res) => {
   try {
     const plots = await Plot.find({})
-    .populate('owner' )
+    .populate('owner')
+    .populate('actions')
     .sort({createdAt: 'desc'})
     res.status(200).json(plots)
   } catch (error) {
@@ -15,6 +16,7 @@ const index = async (req, res) => {
 const create = async (req, res) => {
   try {
     req.body.owner = req.body.profile
+    console.log(req.body.owner)
     const plot = await Plot.create(req.body)
     const profile = await Profile.findByIdAndUpdate(req.user.profile,
       {$push: {plots: plot}},
@@ -31,8 +33,6 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     // const active = req.body.active !== undefined ? req.body.active : true;
-    console.log("update ran")
-    console.log(req.body)
     const plot = await Plot.findByIdAndUpdate(
       req.params.id, 
       req.body,
@@ -40,7 +40,6 @@ const update = async (req, res) => {
       { new: true }
     )
     .populate('owner')
-    console.log(plot)
     res.status(200).json(plot)
 } catch(error) {
   res.status(500).json(error)

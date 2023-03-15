@@ -1,4 +1,35 @@
 import { Action } from '../models/action.js'
+import { Plot } from '../models/plot.js'
 
+const index = async (req, res) => {
+    try {
+        const actions = await Action.find({})
+        .sort({createdAt: 'desc'})
+        res.status(200).json(actions)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 
+const create = async (req, res) => {
+    try {
+        const action = await Action.create(req.body)
+        const plot = await Plot.findById(req.body.plot)
+        plot.actions.push(action._id)
+        plot.save()
+        res.status(200).json(action)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 
+const update = async (req, res) => {
+    try {
+        const action = await Action.findByIdAndUpdate(req.params, req.body, {new: true})
+        res.status(200).json(action)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+export { index, create, update }

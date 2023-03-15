@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 const actionSchema = new Schema({
   name: { type: String, required: true },
+  plot: { type: Schema.Types.ObjectId, ref: 'Plot' },
   completed: { type: Boolean, required: true }, 
   reflection: String
 },{

@@ -35,8 +35,9 @@ const create = async (req, res) => {
         const action = await Action.create(req.body)
         const plot = await Plot.findById(req.body.plot)
         plot.actions.push(action._id)
+        console.log(plot.actions)
         plot.save()
-        res.status(200).json(action)
+        res.status(200).json(plot)
     } catch (error) {
         res.status(500).json(error)
     }

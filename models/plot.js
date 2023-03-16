@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const plotSchema = new Schema({
   name: {type: String , required: true},
   actions: [{ type: Schema.Types.ObjectId, ref: 'Action'}],
-  owner: { type: Schema.Types.ObjectId, ref: 'Profile', required: true },
+  owner: { type: Schema.Types.ObjectId, ref: 'Profile' },
   category: { type: String, enum: ['finance', 'fitness', 'family', 'friends', 'other'] }, 
   points: Number,
   active: { type: Boolean, default: true }
